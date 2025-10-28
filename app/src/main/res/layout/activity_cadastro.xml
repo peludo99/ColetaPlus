@@ -5,70 +5,288 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     tools:context=".CadastroActivity">
 
+
+    <!-- BOTÃO VOLTAR COM ÍCONE -->
+    <ImageButton
+        android:id="@+id/button_voltar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/akar_icons_chevron_left"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Voltar"
+        android:scaleType="centerInside"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- TÍTULO -->
     <TextView
         android:id="@+id/textViewTitleCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Novo Cadastro"
+        android:layout_marginTop="64dp"
+        android:text="Registre-se!"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_marginTop="64dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextNome"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Nome"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:text="Participe do movimento e faça a diferença!"
+        android:textColor="@color/grey"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleCadastro" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextsenha1"
+
+    <!-- CAMPO NOME -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_nome"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
+        android:layout_height="51dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/fundo_input"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNome" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:startIconDrawable="@drawable/profile_2_1__1_"
+        app:startIconTint="@color/grey"
+        app:hintEnabled="false">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextSenha"
+        android:id="@+id/edit_text_nome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        android:gravity="center_vertical"
+        android:hint="Nome completo"
+
+        android:paddingStart="60dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+
+            android:background="@android:color/transparent"
+            android:inputType="textPersonName|textCapWords"
+
+            android:textColor="@color/grey"
+            android:textSize="16sp" />
+
+</com.google.android.material.textfield.TextInputLayout>
+
+    <!-- CAMPO NUMERO -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_numero"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_height="51dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Senha"
-        android:inputType="textPassword"
+        android:background="@drawable/fundo_input"
+
+        app:hintEnabled="false"
+
+
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextsenha1" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_nome"
+        app:startIconDrawable="@drawable/phone"
+        app:startIconTint="@color/grey">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_numero"
+            android:layout_width="match_parent"
+            android:hint="Número"
+            android:layout_height="match_parent"
+
+
+            android:gravity="center_vertical"
+
+            android:paddingStart="60dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+
+
+
+            android:background="@android:color/transparent"
+            android:inputType="phone|textCapWords"
+
+
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+
+
+
+           />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- CAMPO EMAIL -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_email"
+        android:layout_width="0dp"
+
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/fundo_input"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/grey"
+        app:hintEnabled="false"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_numero"
+        app:startIconDrawable="@drawable/mail_outline_1__1_"
+        app:startIconTint="@color/grey"
+       >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress|textCapWords"
+            android:hint="Email"
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            android:background="@android:color/transparent"
+
+
+
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+
+
+
+
+            android:gravity="center_vertical"
+
+            android:paddingStart="60dp"
+
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- CAMPO SENHA -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_senha"
+        android:layout_width="0dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/fundo_input"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_email"
+        app:passwordToggleEnabled="true"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/password_6_1__1_"
+        app:startIconTint="@color/grey">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_senha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword|textCapWords"
+            android:hint="Senha"
+
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            android:background="@android:color/transparent"
+
+
+
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+
+
+            android:gravity="center_vertical"
+
+            android:paddingStart="60dp"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_senhaconfirme"
+        android:layout_width="0dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/fundo_input"
+        app:hintEnabled="false"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_senha"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/password_6_1__1_"
+        app:startIconTint="@color/grey">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_senhaconfirme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword|textCapWords"
+            android:hint="Senha"
+
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            android:background="@android:color/transparent"
+
+
+
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+
+
+            android:gravity="center_vertical"
+
+            android:paddingStart="60dp"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <!-- BOTÕES -->
     <Button
         android:id="@+id/buttonCadastrar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="Cadastrar"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/borda_botao"
+        android:padding="14dp"
+        android:text="Registre-se"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_senhaconfirme" />
 
     <Button
         android:id="@+id/buttonIrParaLogin"
@@ -76,10 +294,94 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Já tem conta? Entrar"
-        android:textColor="?attr/colorPrimary"
+        android:text="Já possui uma conta? Acesse"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <!-- DIVISOR "Ou prossiga com" -->
+    <View
+        android:id="@+id/line_1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@+id/text_divisor"
+        app:layout_constraintEnd_toStartOf="@+id/text_divisor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_divisor" />
+
+    <TextView
+        android:id="@+id/text_divisor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:text=" Ou prossiga com "
+        android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCadastrar" />
+
+    <View
+        android:id="@+id/line_2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@+id/text_divisor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_divisor"
+        app:layout_constraintTop_toTopOf="@+id/text_divisor" />
+
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/vector_8" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginStart="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonIrParaLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_divisor"
+        app:srcCompat="@drawable/group_56" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+
+        app:layout_constraintBottom_toTopOf="@+id/buttonIrParaLogin"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/text_divisor"
+        app:srcCompat="@drawable/group_55" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginEnd="80dp"
+
+
+        app:layout_constraintBottom_toTopOf="@+id/buttonIrParaLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/text_divisor"
+        app:srcCompat="@drawable/group_54" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

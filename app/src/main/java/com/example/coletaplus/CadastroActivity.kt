@@ -2,11 +2,16 @@ package com.example.coletaplus
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.semantics.text
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.coletaplus.Classes.Pessoa
@@ -31,10 +36,40 @@ class CadastroActivity : AppCompatActivity() {
             insets
         }
 
+
+        // 1. Encontre o TextView pelo ID
+        val divisorTextView = findViewById<Button>(R.id.buttonIrParaLogin)
+
+        // 2. Crie uma SpannableString a partir do texto original
+        val fullText = "Já possui uma conta? Acesse"
+        val spannableString = SpannableString(fullText)
+
+        // 3. Encontre o índice de início e fim da palavra que você quer colorir
+        val wordToColor = "Acesse"
+        val startIndex = fullText.indexOf(wordToColor)
+        val endIndex = startIndex + wordToColor.length
+
+        // 4. Defina a cor que você quer usar (ex: a cor primária do seu app ou outra)
+        val color = ContextCompat.getColor(this, R.color.verde) // Troque R.color.purple_500 pela sua cor desejada
+
+        // 5. Aplique o estilo de cor à palavra
+        spannableString.setSpan(
+            ForegroundColorSpan(color),
+            startIndex,
+            endIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        // 6. Defina o texto estilizado no TextView
+        divisorTextView.text = spannableString
+
         // --- Inicialização das Views de Cadastro ---
-        val campoNome = findViewById<TextInputEditText>(R.id.editTextNome)
-        val campoEmail = findViewById<TextInputEditText>(R.id.editTextsenha1)
-        val campoSenha = findViewById<TextInputEditText>(R.id.editTextSenha)
+        val campoNome = findViewById<TextInputEditText>(R.id.edit_text_nome)
+        val campoEmail = findViewById<TextInputEditText>(R.id.edit_text_email)
+        val campoSenha = findViewById<TextInputEditText>(R.id.edit_text_senha)
+        val campoSenhaConfirme = findViewById<TextInputEditText>(R.id.edit_text_senhaconfirme)
+        val campoNumero = findViewById<TextInputEditText>(R.id.edit_text_numero)
+
         val botaoCadastrar = findViewById<Button>(R.id.buttonCadastrar)
         val botaoIrParaLogin = findViewById<Button>(R.id.buttonIrParaLogin)
 

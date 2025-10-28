@@ -1,11 +1,18 @@
 package com.example.coletaplus
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.widget.AppCompatButton
+
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.coletaplus.Classes.Pessoa
@@ -27,10 +34,36 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        // 1. Encontre o TextView pelo ID
+        val divisorTextView = findViewById<Button>(R.id.buttonIrParaLogin)
+
+        // 2. Crie uma SpannableString a partir do texto original
+        val fullText = "Já possui uma conta? Acesse"
+        val spannableString = SpannableString(fullText)
+
+        // 3. Encontre o índice de início e fim da palavra que você quer colorir
+        val wordToColor = "Acesse"
+        val startIndex = fullText.indexOf(wordToColor)
+        val endIndex = startIndex + wordToColor.length
+
+        // 4. Defina a cor que você quer usar (ex: a cor primária do seu app ou outra)
+        val color = ContextCompat.getColor(this, R.color.verde) // Troque R.color.purple_500 pela sua cor desejada
+
+        // 5. Aplique o estilo de cor à palavra
+        spannableString.setSpan(
+            ForegroundColorSpan(color),
+            startIndex,
+            endIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        // 6. Defina o texto estilizado no TextView
+        divisorTextView.text = spannableString
+
         // --- 1. Inicialização das Views ---
-        val campoEmail = findViewById<TextInputEditText>(R.id.editTextLoginEmail)
-        val campoSenha = findViewById<TextInputEditText>(R.id.editTextLoginSenha)
-        val botaoLogar = findViewById<Button>(R.id.buttonLogar)
+        val campoEmail = findViewById<TextInputEditText>(R.id.edit_text_email)
+        val campoSenha = findViewById<TextInputEditText>(R.id.edit_text_senha)
+        val botaoLogar = findViewById<AppCompatButton>(R.id.buttonCadastrar)
 
         // --- 2. Configuração do Listener ---
         botaoLogar.setOnClickListener {
@@ -41,9 +74,7 @@ class LoginActivity : AppCompatActivity() {
         Log.d("LoginActivity", "Usuários disponíveis no Repositório: ${RepositorioDados.listaPessoas.size}")
     }
 
-    /**
-     * Função que contém toda a lógica de validação e login, usando a lista compartilhada.
-     */
+
     private fun realizarLogin(campoEmail: TextInputEditText, campoSenha: TextInputEditText) {
         val emailDigitado = campoEmail.text.toString().trim()
         val senhaDigitada = campoSenha.text.toString()
@@ -60,8 +91,7 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        // 2. Lógica de Busca e Verificação (AGORA NO REPOSITÓRIO COMPARTILHADO)
-        // O método .find busca o primeiro elemento na lista que satisfaz a condição
+        // 2. Lógica de Busca e Verificação
         val usuarioEncontrado = RepositorioDados.listaPessoas.find {
             it.email == emailDigitado && it.senha == senhaDigitada
         }
@@ -71,6 +101,10 @@ class LoginActivity : AppCompatActivity() {
             Log.d("LoginActivity", "✅ Login bem-sucedido para: ${usuarioEncontrado.nome}")
             Toast.makeText(this, "Bem-vindo(a), ${usuarioEncontrado.nome}!", Toast.LENGTH_LONG).show()
 
+            // Navega para a tela inicial
+            val intent = Intent(this, TelaInicialActivity::class.java) // <-- TROQUE AQUI
+            startActivity(intent)
+            finish() // Impede que o usuário volte para a tela de login
 
         } else {
             // Login Falhou
@@ -80,4 +114,5 @@ class LoginActivity : AppCompatActivity() {
             campoSenha.error = "Verifique seus dados"
         }
     }
+
 }
