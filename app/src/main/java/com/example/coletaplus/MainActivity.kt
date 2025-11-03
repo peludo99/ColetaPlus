@@ -1,7 +1,10 @@
 package com.example.coletaplus
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import android.window.SplashScreen
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.app.ActivityCompat
 import com.example.coletaplus.ui.theme.ColetaPlusTheme
 import kotlinx.coroutines.delay
 
@@ -29,6 +33,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
 
             Surface(
@@ -68,6 +73,9 @@ class MainActivity : ComponentActivity() {
         }
 
     }
+
+
+
 
 
     @Preview(showBackground = true)
