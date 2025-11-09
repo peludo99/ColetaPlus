@@ -1,17 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TelaInicialActivity">
 
-
+    <!-- 1. O Mapa, ocupando a tela inteira -->
     <org.osmdroid.views.MapView
         android:id="@+id/mapViewSimpleloc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+
+
+    </org.osmdroid.views.MapView>
+
+
+    <View
+        android:id="@+id/view2"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/confi"
+        android:layout_alignParentStart="true"
+       />
+
+
+    <!-- Substituído View por FrameLayout para poder conter o TextView -->
+    <!-- FrameLayout funcionando como um modal -->
+    <FrameLayout
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="invisible"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/fundoframe"
+        android:paddingBottom="24dp">
+
+        <!-- Botão de Fechar (X) -->
+        <View
+            android:id="@+id/button1"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/x" />
+
+        <!-- Container Vertical para organizar o conteúdo principal -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="40dp">
+
+            <!-- Ícone da lixeira -->
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/trash_vermelha" />
+
+            <!-- Título -->
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Lixeira {nome}"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- *** RadioGroup POSICIONADO AQUI *** -->
+            <RadioGroup
+                android:id="@+id/radioGroupStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <!-- Opção 1: Vazio -->
+                <RadioButton
+                    android:id="@+id/radioVazio"
+                    style="@style/Widget.App.RadioButtonAsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vazio" />
+
+                <!-- Opção 2: Intermediário -->
+                <RadioButton
+                    android:id="@+id/radioIntermediario"
+                    style="@style/Widget.App.RadioButtonAsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Intermediário" />
+
+                <!-- Opção 3: Cheio -->
+                <RadioButton
+                    android:id="@+id/radioCheio"
+                    style="@style/Widget.App.RadioButtonAsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cheio" />
+
+            </RadioGroup>
+
+            <!-- ÁREA DE TEXTO (Text Area) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:hint="Adicione uma descrição..."
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Botão de Enviar -->
+            <Button
+                android:id="@+id/button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Enviar" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+
 
 
 </RelativeLayout>

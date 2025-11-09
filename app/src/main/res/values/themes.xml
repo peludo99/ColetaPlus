@@ -1,10 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ColetaPlus" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/verde</item>
+        <item name="colorPrimaryVariant">@color/verde</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/verde</item>
+        <item name="colorSecondaryVariant">@color/verde</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
-
-
-    <style name="Theme.ColetaPlus.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
-
+        <!-- === ADICIONE ESTA LINHA PARA TORNAR A BARRA DE NAVEGAÇÃO TRANSPARENTE === -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- ====================================================================== -->
     </style>
+
+    <style name="Theme.ColetaPlus.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <!-- Em res/values/styles.xml -->
+    <style name="Widget.App.RadioButtonAsText" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/radio_text_selector</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:paddingVertical">8dp</item>
+    </style>
+
 
 </resources>
