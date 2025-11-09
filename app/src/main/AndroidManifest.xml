@@ -2,12 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
 
     <application
         android:allowBackup="true"
@@ -18,6 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ColetaPlus.NoActionBar">
+        <activity
+            android:name=".TelaServidorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TelaAlunoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TelaServidor"
+            android:exported="false" />
+        <activity
+            android:name=".TelaAluno"
+            android:exported="false" />
         <activity
             android:name=".TelaInicialActivity"
             android:exported="false" />
@@ -40,8 +49,9 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="org.osmdroid.config"
-           android:value="true"></meta-data>
+        <meta-data
+            android:name="org.osmdroid.config"
+            android:value="true" />
     </application>
 
 </manifest>
