@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/rounded_dialog_background">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/text_activity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Detalhe da Atividade"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#222222"/>
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close_24dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_activity_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Este é o texto de descrição da atividade, explicando os objetivos, o que o aluno deve fazer e a recompensa (XP ou pontos) ao concluir."
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:layout_marginBottom="24dp"/>
+
+    <ImageView
+        android:id="@+id/image_activity_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_atividade3"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btn_main_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver Detalhes da Missão"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/link_view_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver Progresso"
+        android:textColor="#4CAF50"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

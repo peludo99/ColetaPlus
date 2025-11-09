@@ -1,3 +1,11 @@
 <resources>
+    <string name="post_detail_author_prefix">Postagem de</string>
+    <string name="post_detail_score_suffix">+50 Pontos</string>
+    <string name="post_detail_date_prefix">Postado em</string>
+    <string name="post_detail_description_placeholder">Aqui está a descrição detalhada que o usuário adicionou ao enviar o check-in.</string>
+
+    <string name="content_description_close">Fechar</string>
+    <string name="content_description_post_image">Imagem da postagem de atividade</string>
     <string name="app_name">ColetaPlus</string>
+
 </resources>

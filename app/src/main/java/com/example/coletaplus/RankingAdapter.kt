@@ -1,4 +1,4 @@
-package com.example.coletaplus // Ajuste o pacote
+package com.example.coletaplus
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,26 +6,30 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RankingAdapter(private val itemCount: Int) : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
+// Nota: Agora usa com.example.coletaplus.RankingItem
+class RankingAdapter(private val rankingList: List<RankingItem>) :
+    RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvRank: TextView = view.findViewById(R.id.tvRank)
-        val tvName: TextView = view.findViewById(R.id.tvName)
-        val tvPoints: TextView = view.findViewById(R.id.tvPoints)
+    class RankingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        // IDs assumidos do seu item_ranking.xml
+        val textPosition: TextView = view.findViewById(R.id.text_position)
+        val textName: TextView = view.findViewById(R.id.text_name)
+        val textScore: TextView = view.findViewById(R.id.text_score)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_ranking_row, parent, false)
-        return ViewHolder(view)
+            .inflate(R.layout.item_ranking, parent, false)
+        return RankingViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Dados mockados para visualização
-        holder.tvRank.text = "${position + 4}"
-        holder.tvName.text = "Usuário ${position + 4}"
-        holder.tvPoints.text = "${400 - (position * 50)}"
+    override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
+        val currentItem = rankingList[position]
+
+        holder.textPosition.text = currentItem.position.toString()
+        holder.textName.text = currentItem.name
+        holder.textScore.text = currentItem.score.toString()
     }
 
-    override fun getItemCount() = itemCount
+    override fun getItemCount() = rankingList.size
 }

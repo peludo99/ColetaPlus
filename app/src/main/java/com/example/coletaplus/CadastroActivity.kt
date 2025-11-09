@@ -94,7 +94,7 @@ class CadastroActivity : AppCompatActivity() {
             RepositorioDados.listaPessoas.add(novaPessoa) // <-- MUDANÇA ESSENCIAL
 
             // 4. Feedback e Log
-            Log.d("CadastroActivity", "✅ Nova Pessoa Cadastrada: ${novaPessoa.nome}")
+            Log.d("CadastroActivity", " Nova Pessoa Cadastrada: ${novaPessoa.nome}")
             // Logando o total da lista compartilhada
             Log.d("CadastroActivity", "Total na lista global: ${RepositorioDados.listaPessoas.size}")
 
