@@ -42,7 +42,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/Segundo" />
+                android:src="@drawable/segundo" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
             <ImageView
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:src="@drawable/Primeiro" />
+                android:src="@drawable/primeiro" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/Terceiro" />
+                android:src="@drawable/terceiro" />
 
             <TextView
                 android:layout_width="wrap_content"
