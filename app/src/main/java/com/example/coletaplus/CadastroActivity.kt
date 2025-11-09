@@ -103,6 +103,8 @@ class CadastroActivity : AppCompatActivity() {
             campoNome.text?.clear()
             campoEmail.text?.clear()
             campoSenha.text?.clear()
+            campoNumero.text?.clear()
+            campoSenhaConfirme.text?.clear()
         }
 
         // Lógica do botão IR PARA LOGIN (MANTIDA)
