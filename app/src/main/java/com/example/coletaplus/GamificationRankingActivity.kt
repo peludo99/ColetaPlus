@@ -1,7 +1,6 @@
 package com.example.coletaplus
 
 import android.os.Bundle
-import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +14,15 @@ class GamificationRankingActivity : AppCompatActivity() {
 
         val rvRanking = findViewById<RecyclerView>(R.id.rvRanking)
         rvRanking.layoutManager = LinearLayoutManager(this)
-        rvRanking.adapter = RankingAdapter(10)
+
+        val listaFalsa = List(10) { index ->
+            RankingItem(
+                position = index + 4,
+                name = "Usuário ${index + 4}",
+                score = 500 - (index * 10)
+            )
+        }
+        rvRanking.adapter = RankingAdapter(listaFalsa)
 
         val rank1 = findViewById<LinearLayout>(R.id.llRank1)
         rank1.setOnClickListener {
