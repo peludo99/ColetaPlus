@@ -1,8 +1,10 @@
 package com.example.coletaplus
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -65,8 +67,24 @@ class HubActivity : AppCompatActivity() {
         val btnInsignia1 = findViewById<LinearLayout>(R.id.btnInsignia1)
         btnInsignia1.setOnClickListener {
             // Código para abrir a Activity de Ranking (gamificação)
-            // val intent = Intent(this, GamificationRankingActivity::class.java)
-            // startActivity(intent)
+             val intent = Intent(this, GamificationRankingActivity::class.java)
+             startActivity(intent)
         }
+
+
+        //navegação
+
+        val btnmap = findViewById<ImageView>(R.id.muser)
+
+
+        btnmap.setOnClickListener {
+
+            val intent = Intent(this, TelaInicialActivity::class.java)
+
+
+            startActivity(intent)
+
+        }
+
     }
 }

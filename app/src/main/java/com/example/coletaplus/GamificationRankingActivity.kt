@@ -1,6 +1,8 @@
 package com.example.coletaplus
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +13,32 @@ class GamificationRankingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gamification_ranking)
+
+        //nav
+
+        val btnmap = findViewById<ImageView>(R.id.muser)
+
+
+        btnmap.setOnClickListener {
+
+            val intent = Intent(this, TelaInicialActivity::class.java)
+
+
+            startActivity(intent)
+
+        }
+
+        val btnuser = findViewById<ImageView>(R.id.tuser)
+
+
+        btnuser.setOnClickListener {
+
+            val intent = Intent(this, HubActivity::class.java)
+
+
+            startActivity(intent)
+
+        }
 
         val rvRanking = findViewById<RecyclerView>(R.id.rvRanking)
         rvRanking.layoutManager = LinearLayoutManager(this)

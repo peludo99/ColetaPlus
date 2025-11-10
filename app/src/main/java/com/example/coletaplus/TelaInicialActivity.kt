@@ -2,6 +2,7 @@ package com.example.coletaplus
 
 import android.os.Bundle
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.view.View
@@ -21,6 +22,7 @@ import androidx.compose.ui.semantics.text
 
 import androidx.core.content.ContextCompat
 import com.example.coletaplus.Classes.Lixeira
+import com.example.coletaplus.ui.TelaAlunoActivity
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -40,6 +42,20 @@ class TelaInicialActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tela_inicial)
         painelLixeira = findViewById(R.id.view3)
         botaoFecharPainel = findViewById(R.id.button1)
+
+
+
+        val btnuser = findViewById<ImageView>(R.id.tuser)
+
+
+        btnuser.setOnClickListener {
+
+            val intent = Intent(this, HubActivity::class.java)
+
+
+            startActivity(intent)
+
+        }
 
 
         botaoFecharPainel.setOnClickListener {

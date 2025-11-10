@@ -28,6 +28,44 @@
        />
 
 
+    <LinearLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#F5F5F5"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/tuser"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            app:tint="#BDBDBD"
+            android:src="@android:drawable/ic_menu_myplaces"
+            />
+
+        <ImageView
+            android:id="@+id/muser"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_dialog_map"
+
+            app:tint="@color/green_card_dark"/>
+
+        <ImageView
+            android:id="@+id/nuser"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_popup_reminder"
+            app:tint="#BDBDBD" />
+    </LinearLayout>
+
+
     <!-- Substituído View por FrameLayout para poder conter o TextView -->
     <!-- FrameLayout funcionando como um modal -->
     <FrameLayout
