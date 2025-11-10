@@ -29,13 +29,27 @@ import androidx.core.app.ActivityCompat
 import com.example.coletaplus.ui.theme.ColetaPlusTheme
 import kotlinx.coroutines.delay
 
+import com.google.firebase.Firebase
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        setContent {
+        val database = FirebaseDatabase.getInstance()
+        val testRef: DatabaseReference = database.getReference("testConnection")
 
+        testRef.setValue("Conexão bem-sucedida!")
+            .addOnSuccessListener {
+                Toast.makeText(this, "Conexão com Firebase OK!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Falha na conexão com Firebase", Toast.LENGTH_SHORT).show()
+            }
+
+        setContent {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
@@ -46,17 +60,12 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-
     fun SplashScreen() {
         val context = LocalContext.current
         LaunchedEffect(true) {
             delay(5000)
-
-
             val intent = Intent(context, CadastroActivity::class.java)
             context.startActivity(intent)
-
-
             (context as? ComponentActivity)?.finish()
         }
 
@@ -66,25 +75,15 @@ class MainActivity : ComponentActivity() {
                 .background(MaterialTheme.colorScheme.primary),
             contentAlignment = Alignment.Center
         ) {
-
-            CircularProgressIndicator(
-                color = Color.White
-            )
+            CircularProgressIndicator(color = Color.White)
         }
-
     }
-
-
-
-
 
     @Preview(showBackground = true)
     @Composable
     fun SplashScreenPreview() {
         ColetaPlusTheme {
-
             SplashScreen()
-
         }
     }
 }
