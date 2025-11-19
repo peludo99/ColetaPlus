@@ -63,6 +63,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation("org.osmdroid:osmdroid-android:6.1.16")
+
+
+
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
