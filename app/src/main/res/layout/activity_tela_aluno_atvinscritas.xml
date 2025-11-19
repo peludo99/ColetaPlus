@@ -121,7 +121,7 @@
                 android:layout_height="10dp"
                 android:progress="150"
                 android:max="5000"
-                android:progressDrawable="@drawable/ic_check"
+                android:progressDrawable="@drawable/lv_bar"
                 android:layout_marginTop="8dp" />
         </LinearLayout>
 
@@ -150,7 +150,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_check"
+                        android:src="@drawable/ic_sequencia"
                         app:tint="#BDBDBD" />
 
                     <TextView
