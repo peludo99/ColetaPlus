@@ -15,7 +15,7 @@ class PostDetailDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Usa o layout que acabamos de criar
-        return inflater.inflate(R.layout.dialog_post_detail, container, false)
+        return inflater.inflate(R.layout.activity_ranking, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
