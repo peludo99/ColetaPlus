@@ -37,6 +37,9 @@ class TelaInicialActivity : AppCompatActivity() {
     private lateinit var painelLixeira: FrameLayout
     private lateinit var botaoFecharPainel: View
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_inicial)
@@ -46,6 +49,19 @@ class TelaInicialActivity : AppCompatActivity() {
 
 
         val btnuser = findViewById<ImageView>(R.id.tuser)
+
+        val btnuserconfi = findViewById<View>(R.id.configuracoes)
+
+
+        btnuserconfi.setOnClickListener {
+
+            val intent = Intent(this, ConfiActivity::class.java)
+
+
+            startActivity(intent)
+
+
+        }
 
 
         btnuser.setOnClickListener {
