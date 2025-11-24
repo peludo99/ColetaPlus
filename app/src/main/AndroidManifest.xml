@@ -45,6 +45,8 @@
             android:name=".CadastroActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".TelaAlunoActivity" />
 
         <meta-data
             android:name="org.osmdroid.config"

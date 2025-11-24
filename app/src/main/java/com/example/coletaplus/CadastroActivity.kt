@@ -96,12 +96,20 @@ class CadastroActivity : AppCompatActivity() {
                         }
                     }
 
+                    val tipoUsuario = when {
+                        emailDigitado.contains("@servidor") -> "SERVIDOR"
+                        emailDigitado.contains("@professor") -> "PROFESSOR"
+                        else -> "ALUNO"
+                    }
+
                     val novaPessoa = Pessoa(
                         nome = nomeDigitado,
                         numero = numeroDigitado,
                         email = emailDigitado,
-                        senha = senhaDigitada
+                        senha = senhaDigitada,
+                        tipo = tipoUsuario
                     )
+
 
                     val userId = ref.push().key
                     if (userId != null) {

@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coletaplus.Classes.Lixeira
+import com.example.coletaplus.Classes.RepositorioDados
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -53,8 +54,7 @@ class TelaInicialActivity : AppCompatActivity() {
 
 
         btnuser.setOnClickListener {
-            val intent = Intent(this, HubActivity::class.java)
-            startActivity(intent)
+            irParaTelaDoUsuario()
         }
 
         botaoFecharPainel.setOnClickListener {
@@ -68,6 +68,21 @@ class TelaInicialActivity : AppCompatActivity() {
         Configuration.getInstance().load(applicationContext, getSharedPreferences("osmdroid", MODE_PRIVATE))
         mapview = findViewById(R.id.mapViewSimpleloc)
         creatMap()
+    }
+    private fun irParaTelaDoUsuario() {
+        val usuario = RepositorioDados.usuarioLogado
+        if (usuario == null) {
+            Toast.makeText(this, "Usuário não logado", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, TelaMainActivity::class.java))
+            return
+        }
+
+        val intent = when (usuario.tipo) {
+            "SERVIDOR", "PROFESSOR" -> Intent(this, HubActivity::class.java)
+            "ALUNO" -> Intent(this, TelaAlunoActivity::class.java)
+            else -> Intent(this, TelaMainActivity::class.java)
+        }
+        startActivity(intent)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

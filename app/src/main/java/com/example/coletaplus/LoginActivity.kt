@@ -80,11 +80,12 @@ class LoginActivity : AppCompatActivity() {
                     val senha = userSnapshot.child("senha").getValue(String::class.java)
                     val nome = userSnapshot.child("nome").getValue(String::class.java)
                     val numero = userSnapshot.child("numero").getValue(String::class.java)
+                    val tipo = userSnapshot.child("tipo").getValue(String::class.java)
 
                     if (email == emailDigitado && senha == senhaDigitada) {
                         usuarioEncontrado = true
 
-                        RepositorioDados.usuarioLogado = Pessoa(nome ?: "", numero ?: "", email ?: "", senha ?: "")
+                        RepositorioDados.usuarioLogado = Pessoa(nome ?: "", numero ?: "", email ?: "", senha ?: "", tipo ?: "ALUNO")
 
                         val prefs = getSharedPreferences("ColetaPlusPrefs", MODE_PRIVATE)
                         prefs.edit()

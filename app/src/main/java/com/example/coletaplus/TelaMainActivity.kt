@@ -52,9 +52,10 @@ class TelaMainActivity : AppCompatActivity() {
                     if (emailBD == email && senhaBD == senha) {
                         val nome = userSnapshot.child("nome").getValue(String::class.java)
                         val numero = userSnapshot.child("numero").getValue(String::class.java)
+                        val tipo = userSnapshot.child("tipo").getValue(String::class.java)
 
                         RepositorioDados.usuarioLogado =
-                            Pessoa(nome ?: "", numero ?: "", emailBD ?: "", senhaBD ?: "")
+                            Pessoa(nome ?: "", numero ?: "", emailBD ?: "", senhaBD ?: "", tipo ?: "ALUNO")
 
                         startActivity(Intent(this@TelaMainActivity, TelaInicialActivity::class.java))
                         finish()
