@@ -1,4 +1,3 @@
-
 package com.example.coletaplus
 
 import android.content.Intent
@@ -6,119 +5,121 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
-import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.coletaplus.Classes.Pessoa
+import com.example.coletaplus.Classes.RepositorioDados
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+
 
 class TelaMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val prefs = getSharedPreferences("ColetaPlusPrefs", MODE_PRIVATE)
+        val emailSalvo = prefs.getString("usuarioEmail", null)
+        val senhaSalva = prefs.getString("usuarioSenha", null)
+
+        if (emailSalvo != null && senhaSalva != null) {
+            validarLoginNoFirebase(emailSalvo, senhaSalva)
+            return
+        }
+
         setContentView(R.layout.activity_tela_main)
 
-        // Chama as funções para organizar o código
         configurarTextoDoTextView6()
         configurarTextoDoTextView9()
         configurarBotaoRegistrar()
     }
 
-    /**
-     * Configura o TextView com ID 'textView6', colorindo as palavras "mudança" e "precisa!".
-     */
+    private fun validarLoginNoFirebase(email: String, senha: String) {
+        val usuariosRef = FirebaseDatabase.getInstance().getReference("usuarios")
+
+        usuariosRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (userSnapshot in snapshot.children) {
+                    val emailBD = userSnapshot.child("email").getValue(String::class.java)
+                    val senhaBD = userSnapshot.child("senha").getValue(String::class.java)
+
+                    if (emailBD == email && senhaBD == senha) {
+                        val nome = userSnapshot.child("nome").getValue(String::class.java)
+                        val numero = userSnapshot.child("numero").getValue(String::class.java)
+
+                        RepositorioDados.usuarioLogado =
+                            Pessoa(nome ?: "", numero ?: "", emailBD ?: "", senhaBD ?: "")
+
+                        startActivity(Intent(this@TelaMainActivity, TelaInicialActivity::class.java))
+                        finish()
+                        return
+                    }
+                }
+                // Se der erro (senha/email não encontrados), volta pra tela de login
+                val intent = Intent(this@TelaMainActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
     private fun configurarTextoDoTextView6() {
         val meuTextView: TextView = findViewById(R.id.textView6)
         val textoCompleto = "A mudança que o nosso campus precisa!"
         val spannable = SpannableStringBuilder(textoCompleto)
         val corVerde: Int = ContextCompat.getColor(this, R.color.verde)
 
-        // Palavras a serem coloridas
         val palavra1 = "mudança"
         val palavra2 = "precisa!"
 
-        // Encontra a posição e aplica a cor na primeira palavra
-        val inicioPalavra1 = textoCompleto.indexOf(palavra1)
-        if (inicioPalavra1 != -1) {
-            val fimPalavra1 = inicioPalavra1 + palavra1.length
-            spannable.setSpan(
-                ForegroundColorSpan(corVerde),
-                inicioPalavra1,
-                fimPalavra1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+        val inicio1 = textoCompleto.indexOf(palavra1)
+        if (inicio1 != -1) {
+            val fim1 = inicio1 + palavra1.length
+            spannable.setSpan(ForegroundColorSpan(corVerde), inicio1, fim1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
-        // Encontra a posição e aplica a cor na segunda palavra
-        val inicioPalavra2 = textoCompleto.indexOf(palavra2)
-        if (inicioPalavra2 != -1) {
-            val fimPalavra2 = inicioPalavra2 + palavra2.length
-            spannable.setSpan(
-                ForegroundColorSpan(corVerde),
-                inicioPalavra2,
-                fimPalavra2,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+        val inicio2 = textoCompleto.indexOf(palavra2)
+        if (inicio2 != -1) {
+            val fim2 = inicio2 + palavra2.length
+            spannable.setSpan(ForegroundColorSpan(corVerde), inicio2, fim2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         meuTextView.text = spannable
     }
 
-
     private fun configurarTextoDoTextView9() {
         val textViewLoginLink: TextView = findViewById(R.id.textView9)
-        val textoCompleto = "Já possui uma conta? Log in"
-        val spannable = SpannableStringBuilder(textoCompleto)
+        val texto = "Já possui uma conta? Log in"
+        val spannable = SpannableStringBuilder(texto)
         val corVerde: Int = ContextCompat.getColor(this, R.color.verde)
 
-        val palavraParaColorir = "Log in"
-        val inicio = textoCompleto.indexOf(palavraParaColorir)
+        val inicio = texto.indexOf("Log in")
+        val fim = inicio + "Log in".length
 
         if (inicio != -1) {
-
-
-            val fim = inicio + palavraParaColorir.length
-            // Aplica a cor verde
-            spannable.setSpan(
-                ForegroundColorSpan(corVerde),
-                inicio,
-                fim,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            // Aplica o estilo de negrito
-            spannable.setSpan(
-                StyleSpan(Typeface.BOLD),
-                inicio,
-                fim,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            spannable.setSpan(ForegroundColorSpan(corVerde), inicio, fim, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(StyleSpan(Typeface.BOLD), inicio, fim, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         textViewLoginLink.text = spannable
+
+        textViewLoginLink.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 
-    /**
-     * Configura o OnClickListener do botão de registro para navegar para a TelaDeRegistroActivity.
-     */
     private fun configurarBotaoRegistrar() {
         val botaoRegistrar: Button = findViewById(R.id.button_registrar)
-
         botaoRegistrar.setOnClickListener {
-            // Cria a intenção de navegar da tela atual (this) para a tela de registro.
-            val intent = Intent(this, CadastroActivity::class.java)
-
-            // Inicia a nova Activity.
-            startActivity(intent)
+            startActivity(Intent(this, CadastroActivity::class.java))
         }
-
-
-        val btnlogin: TextView = findViewById(R.id.textView9)
-        btnlogin.setOnClickListener {  val intent = Intent(this, LoginActivity::class.java)
-
-            // Inicia a nova Activity.
-            startActivity(intent) }
     }
 }

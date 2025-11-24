@@ -6,7 +6,6 @@ import androidx.appcompat.widget.AppCompatButton
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -80,11 +79,18 @@ class LoginActivity : AppCompatActivity() {
                     val email = userSnapshot.child("email").getValue(String::class.java)
                     val senha = userSnapshot.child("senha").getValue(String::class.java)
                     val nome = userSnapshot.child("nome").getValue(String::class.java)
+                    val numero = userSnapshot.child("numero").getValue(String::class.java)
 
                     if (email == emailDigitado && senha == senhaDigitada) {
                         usuarioEncontrado = true
 
-                        RepositorioDados.usuarioLogado = Pessoa(nome ?: "", email ?: "", senha ?: "")
+                        RepositorioDados.usuarioLogado = Pessoa(nome ?: "", numero ?: "", email ?: "", senha ?: "")
+
+                        val prefs = getSharedPreferences("ColetaPlusPrefs", MODE_PRIVATE)
+                        prefs.edit()
+                            .putString("usuarioEmail", emailDigitado)
+                            .putString("usuarioSenha", senhaDigitada)
+                            .apply()
 
                         val intent = Intent(this@LoginActivity, TelaInicialActivity::class.java)
                         startActivity(intent)

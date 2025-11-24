@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.coletaplus.Classes.Pessoa
 import com.example.coletaplus.Classes.RepositorioDados
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 class CadastroActivity : AppCompatActivity() {
 
@@ -35,9 +35,8 @@ class CadastroActivity : AppCompatActivity() {
         val divisorTextView = findViewById<Button>(R.id.buttonIrParaLogin)
         val fullText = "Já possui uma conta? Acesse"
         val spannableString = SpannableString(fullText)
-        val wordToColor = "Acesse"
-        val startIndex = fullText.indexOf(wordToColor)
-        val endIndex = startIndex + wordToColor.length
+        val startIndex = fullText.indexOf("Acesse")
+        val endIndex = startIndex + "Acesse".length
         val color = ContextCompat.getColor(this, R.color.verde)
         spannableString.setSpan(
             ForegroundColorSpan(color),
@@ -59,6 +58,8 @@ class CadastroActivity : AppCompatActivity() {
             val nomeDigitado = campoNome.text.toString().trim()
             val emailDigitado = campoEmail.text.toString().trim()
             val senhaDigitada = campoSenha.text.toString()
+            val senhaConfirmadaDigitada = campoSenhaConfirme.text.toString()
+            val numeroDigitado = campoNumero.text.toString()
 
             if (nomeDigitado.isBlank() || emailDigitado.isBlank() || senhaDigitada.isBlank()) {
                 if (nomeDigitado.isBlank()) campoNome.error = "Preencha este campo"
@@ -67,30 +68,64 @@ class CadastroActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val novaPessoa = Pessoa(nome = nomeDigitado, email = emailDigitado, senha = senhaDigitada)
-            RepositorioDados.listaPessoas.add(novaPessoa)
-
-            Log.d("CadastroActivity", " Nova Pessoa Cadastrada: ${novaPessoa.nome}")
-            Log.d("CadastroActivity", "Total na lista global: ${RepositorioDados.listaPessoas.size}")
-
-            val database = FirebaseDatabase.getInstance()
-            val usersRef = database.getReference("usuarios")
-            val userId = usersRef.push().key
-            if (userId != null) {
-                usersRef.child(userId).setValue(novaPessoa)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Usuário ${novaPessoa.nome} cadastrado e salvo!", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Falha ao salvar no Firebase", Toast.LENGTH_SHORT).show()
-                    }
+            if (!emailDigitado.contains("@") || !emailDigitado.contains(".")) {
+                campoEmail.error = "E-mail inválido"
+                return@setOnClickListener
             }
 
-            campoNome.text?.clear()
-            campoEmail.text?.clear()
-            campoSenha.text?.clear()
-            campoNumero.text?.clear()
-            campoSenhaConfirme.text?.clear()
+            if (senhaDigitada.length < 6 ||
+                !senhaDigitada.any { it.isDigit() } ||
+                !senhaDigitada.any { it.isLetter() }) {
+                campoSenha.error = "A senha deve ter letras, números e no mínimo 6 caracteres"
+                return@setOnClickListener
+            }
+
+            if (senhaDigitada != senhaConfirmadaDigitada) {
+                campoSenhaConfirme.error = "As senhas não coincidem"
+                return@setOnClickListener
+            }
+
+            val ref = FirebaseDatabase.getInstance().getReference("usuarios")
+            ref.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (userSnapshot in snapshot.children) {
+                        val email = userSnapshot.child("email").getValue(String::class.java)
+                        if (email == emailDigitado) {
+                            Toast.makeText(this@CadastroActivity, "E-mail já cadastrado", Toast.LENGTH_SHORT).show()
+                            return
+                        }
+                    }
+
+                    val novaPessoa = Pessoa(
+                        nome = nomeDigitado,
+                        numero = numeroDigitado,
+                        email = emailDigitado,
+                        senha = senhaDigitada
+                    )
+
+                    val userId = ref.push().key
+                    if (userId != null) {
+                        ref.child(userId).setValue(novaPessoa)
+                            .addOnSuccessListener {
+                                Toast.makeText(this@CadastroActivity, "Cadastro realizado!", Toast.LENGTH_SHORT).show()
+
+                                RepositorioDados.usuarioLogado = novaPessoa
+
+                                val prefs = getSharedPreferences("ColetaPlusPrefs", MODE_PRIVATE)
+                                prefs.edit()
+                                    .putString("usuarioEmail", novaPessoa.email)
+                                    .putString("usuarioSenha", novaPessoa.senha)
+                                    .apply()
+
+                                val intent = Intent(this@CadastroActivity, TelaInicialActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {}
+            })
         }
 
         botaoIrParaLogin.setOnClickListener {

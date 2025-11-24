@@ -2,11 +2,17 @@ package com.example.coletaplus
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.coletaplus.Classes.RepositorioDados
+import com.google.firebase.database.FirebaseDatabase
+import android.widget.Toast
+
 
 class ConfiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,37 +25,71 @@ class ConfiActivity : AppCompatActivity() {
             insets
         }
 
+        val botaoVoltar: ImageView = findViewById(R.id.botaovoltar)
+        botaoVoltar.setOnClickListener {
+            val intent = Intent(this, TelaInicialActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
 
+        val usuario = RepositorioDados.usuarioLogado
 
+        val tvNome = findViewById<TextView>(R.id.textView)
+        val etEmail = findViewById<EditText>(R.id.edit_text_email)
+        val etSenha = findViewById<EditText>(R.id.edit_text_senha)
 
+        etEmail.isEnabled = false
+        etSenha.isEnabled = false
 
+        tvNome.text = usuario?.nome ?: ""
+        etEmail.setText(usuario?.email ?: "")
+        etSenha.setText(usuario?.senha ?: "")
 
+        val botaoSair = findViewById<TextView>(R.id.btn_sair1)
 
+        fun fazerLogout() {
+            RepositorioDados.usuarioLogado = null
 
+            val prefs = getSharedPreferences("ColetaPlusPrefs", MODE_PRIVATE)
+            prefs.edit().clear().apply()
 
+            startActivity(Intent(this, TelaMainActivity::class.java))
+            finish()
+        }
 
+        botaoSair.setOnClickListener {
+            fazerLogout()
+            Toast.makeText(this, "Usuário deslogado.", Toast.LENGTH_SHORT).show()
+        }
 
-            // Encontre o seu ImageView pelo ID
-                    val botaoVoltar: ImageView = findViewById(R.id.botaovoltar)
+        val botaoDeletar = findViewById<TextView>(R.id.btn_deletar_conta)
 
-            // Configure o listener de clique
-                    botaoVoltar.setOnClickListener {
-                        // 1. Crie o Intent para a sua tela inicial
-                        val intent = Intent(this, TelaInicialActivity::class.java)
+        botaoDeletar.setOnClickListener {
+            val usuarioAtual = RepositorioDados.usuarioLogado ?: return@setOnClickListener
+            val ref = FirebaseDatabase.getInstance().getReference("usuarios")
 
-                        // 2. Adicione as Flags para limpar a pilha de navegação
-                        // FLAG_ACTIVITY_CLEAR_TOP: Se a TelaInicialActivity já existir na pilha,
-                        // todas as atividades acima dela serão finalizadas.
-                        // FLAG_ACTIVITY_NEW_TASK: Garante que a atividade seja iniciada em uma nova
-                        // tarefa, o que funciona bem em conjunto com CLEAR_TOP.
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            ref.get().addOnSuccessListener { snapshot ->
+                val chaveUsuarioParaDeletar = snapshot.children
+                    .firstOrNull { it.child("email").value?.toString() == usuarioAtual.email }
+                    ?.key
 
-                        // 3. Inicie a Activity
-                        startActivity(intent)
+                if (chaveUsuarioParaDeletar == null) {
+                    Toast.makeText(this, "Usuário não encontrado no banco.", Toast.LENGTH_SHORT).show()
+                    return@addOnSuccessListener
+                }
 
-                        // 4. (Opcional, mas recomendado) Finalize a tela atual
-                        // A flag CLEAR_TASK já faz isso, mas por garantia, podemos adicionar.
-                        finish()
+                ref.child(chaveUsuarioParaDeletar).removeValue()
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Conta deletada com sucesso.", Toast.LENGTH_SHORT).show()
+                        fazerLogout() // chama o logout do botão sair
+                    }
+                    .addOnFailureListener { erro ->
+                        Toast.makeText(this, "Erro ao deletar conta: ${erro.message}", Toast.LENGTH_LONG).show()
+                    }
+            }.addOnFailureListener {
+                Toast.makeText(this, "Erro ao acessar o banco.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
