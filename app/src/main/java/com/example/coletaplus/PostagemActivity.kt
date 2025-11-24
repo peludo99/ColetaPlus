@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -16,8 +18,8 @@ class PostagemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_postagem)
 
-        val btnPublish = findViewById<Button>(R.id.btn_publish)
-        val framePhotoContainer = findViewById<FrameLayout>(R.id.frame_photo_container)
+        val btnPublish = findViewById<TextView>(R.id.tvPublish)
+        val framePhotoContainer = findViewById<ImageView>(R.id.ivPreview)
 
         // 1. Lógica do clique na área da foto
         framePhotoContainer.setOnClickListener {

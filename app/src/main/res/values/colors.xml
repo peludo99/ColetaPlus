@@ -23,4 +23,6 @@
     <color name="ranking_row_odd">@color/white</color>
     <color name="text_white">#FFFFFF</color>
     <color name="dark_gray_background">#212121</color>
+    <color name="red">#D12525</color>
+    <color name="verdeescuro">#31493C</color>
 </resources>

@@ -3,30 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingVertical="12dp"
     android:gravity="center_vertical"
-    android:background="@drawable/bg_rounded_rank_item"
+    android:paddingVertical="14dp"
+    android:paddingHorizontal="20dp"
     android:layout_marginTop="8dp"
-    android:paddingHorizontal="16dp">
+    android:background="@drawable/bg_rounded_rank_item">
 
     <TextView
         android:id="@+id/tvRank"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
+        android:layout_weight="0.15"
         android:text="4"
-        android:textColor="@color/text_white"
         android:textSize="16sp"
+        android:textColor="@color/black_text"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="0.55"
         android:text="Juliene"
-        android:textColor="@color/text_white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black_text" />
 
     <TextView
         android:id="@+id/tvPoints"
@@ -35,6 +35,7 @@
         android:layout_weight="0.3"
         android:gravity="end"
         android:text="460"
-        android:textColor="@color/text_white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/black_text"
+        android:textStyle="bold" />
 </LinearLayout>

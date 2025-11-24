@@ -1,134 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8">
+    android:background="#FFFFFF">
+
+
+    <ImageView
+        android:id="@+id/ivPreview"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_imagem_checkin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardData" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:id="@+id/cardData"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/fundo_input"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintEnd_toStartOf="@id/cardHora"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDataLabel">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvData"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Novo Check-in"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#222222"
-            android:layout_marginBottom="24dp" />
+            android:layout_weight="1"
+            android:text="05/11/2025"
+            android:textColor="@color/black_text"
+            android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Missão/Título"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/edit_post_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ex: Coleta da Semana de Plástico"
-            android:inputType="text"
-            android:padding="12dp"
-            android:background="@drawable/rounded_edittext_bg"
-            android:layout_marginBottom="16dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Descrição (Opcional)"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/edit_post_description"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:hint="Conte um pouco sobre sua atividade..."
-            android:gravity="top"
-            android:padding="12dp"
-            android:background="@drawable/rounded_edittext_bg"
-            android:layout_marginBottom="24dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
-
-            <Button
-                android:id="@+id/btn_select_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="05/11/2025"
-                android:layout_marginEnd="8dp" />
-
-            <Button
-                android:id="@+id/btn_select_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="09:41"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Foto da Atividade"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            android:background="#D0D0D0"
-            android:id="@+id/frame_photo_container">
-
-            <ImageView
-                android:id="@+id/image_preview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:visibility="gone"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/icon_placeholder"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_camera_placeholder"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:text="Toque para adicionar foto"
-                android:textColor="#555555"
-                android:layout_marginBottom="16dp" />
-
-        </FrameLayout>
-
-
-        <Button
-            android:id="@+id/btn_publish"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="PUBLICAR"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="32dp" />
-
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_calendario" />
     </LinearLayout>
-</ScrollView>
+
+    <TextView
+        android:id="@+id/tvHoraLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Hora"
+        android:textColor="#757575"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/cardData"
+        app:layout_constraintTop_toBottomOf="@id/etDescricao" />
+
+    <EditText
+        android:id="@+id/etDescricao"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/fundo_input"
+        android:gravity="top|start"
+        android:hint="Descrição (Opcional)"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:textColor="@color/black_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etTitulo" />
+
+    <TextView
+        android:id="@+id/tvDataLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:text="Data"
+        android:textColor="#757575"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etDescricao" />
+
+    <LinearLayout
+        android:id="@+id/cardHora"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/fundo_input"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardData"
+        app:layout_constraintTop_toBottomOf="@id/tvHoraLabel">
+
+        <TextView
+            android:id="@+id/tvHora"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="20:41"
+            android:textColor="@color/black_text"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_relogio" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="44dp"
+        android:src="@drawable/akar_icons_chevron_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black_text" />
+
+    <TextView
+        android:id="@+id/tvPublish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="Publicar"
+        android:textColor="@color/green_card_dark"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivBack" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Novo check-in"
+        android:textColor="@color/black_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivBack"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/etTitulo"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/fundo_input"
+        android:hint="Título"
+        android:paddingHorizontal="12dp"
+        android:textColor="@color/black_text"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivBack" />
+
+    <LinearLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#F5F5F5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_myplaces"
+            app:tint="@color/green_card_dark" />
+
+        <ImageView
+            android:id="@+id/navMap"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_dialog_map"
+            app:tint="#BDBDBD" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_popup_reminder"
+            app:tint="#BDBDBD" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
