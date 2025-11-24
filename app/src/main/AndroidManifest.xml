@@ -47,6 +47,8 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".TelaAlunoActivity" />
+        <activity
+            android:name=".ManutencoesActivity" />
 
         <meta-data
             android:name="org.osmdroid.config"

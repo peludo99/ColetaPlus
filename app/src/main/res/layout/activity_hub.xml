@@ -282,6 +282,7 @@
             android:layout_marginTop="24dp"
             android:orientation="horizontal"
             android:paddingHorizontal="16dp">
+
             <LinearLayout
                 android:id="@+id/btnInsignia1"
                 android:layout_width="0dp"
@@ -303,14 +304,53 @@
                     android:text="Semana do plástico"
                     android:textColor="#757575"
                     android:textSize="12sp" />
+
             </LinearLayout>
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="80dp" android:layout_height="80dp" android:src="@drawable/ic_insignia2"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:gravity="center" android:text="Leitor" android:textColor="#757575" android:textSize="12sp"/>
+
+            <LinearLayout
+                android:id="@+id/btnInsignia2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_insignia2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Leitor"
+                    android:textColor="#757575"
+                    android:textSize="12sp" />
             </LinearLayout>
-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
-                <ImageView android:layout_width="80dp" android:layout_height="80dp" android:src="@drawable/ic_insignia3"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:gravity="center" android:text="Olhos de águia" android:textColor="#757575" android:textSize="12sp"/>
+
+            <LinearLayout
+                android:id="@+id/btnInsignia3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_insignia3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Olhos de águia"
+                    android:textColor="#757575"
+                    android:textSize="12sp" />
             </LinearLayout>
 
         </LinearLayout>

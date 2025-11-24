@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.coletaplus.Classes.RepositorioDados // 👈 import adicionado
+import com.example.coletaplus.Classes.RepositorioDados
 
 class HubActivity : AppCompatActivity() {
 
@@ -60,10 +60,25 @@ class HubActivity : AppCompatActivity() {
             layoutContentCriacao.visibility = View.VISIBLE
         }
 
+        fun abrirRanking(nomeDaAtividade: String) {
+            val intent = Intent(this, GamificationRankingActivity::class.java)
+            intent.putExtra("EXTRA_TITULO", nomeDaAtividade)
+            startActivity(intent)
+        }
+
         val btnInsignia1 = findViewById<LinearLayout>(R.id.btnInsignia1)
         btnInsignia1.setOnClickListener {
-            val intent = Intent(this, GamificationRankingActivity::class.java)
-            startActivity(intent)
+            abrirRanking("Semana do plástico")
+        }
+
+        val btnInsignia2 = findViewById<LinearLayout>(R.id.btnInsignia2)
+        btnInsignia2.setOnClickListener {
+            abrirRanking("Leitor")
+        }
+
+        val btnInsignia3 = findViewById<LinearLayout>(R.id.btnInsignia3)
+        btnInsignia3.setOnClickListener {
+            abrirRanking("Olhos de águia")
         }
 
         val btnmap = findViewById<ImageView>(R.id.muser)
