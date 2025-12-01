@@ -1,8 +1,11 @@
 package com.example.coletaplus
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -29,6 +32,22 @@ class TelaAlunoActivity : AppCompatActivity() {
         val tvNomeUsuario = findViewById<TextView>(R.id.tvUserName)
         val tvEmailUsuario = findViewById<TextView>(R.id.tvUserEmail)
 
+        val tabDisponiveisContainer = findViewById<LinearLayout>(R.id.tabDisponiveisContainer)
+        val indicadorDisponiveis = findViewById<View>(R.id.indicatorDisponiveis)
+        val indicadorInscritas = findViewById<View>(R.id.indicatorInscritas)
+        val tvDisponiveis = findViewById<TextView>(R.id.tvTabDisponiveis)
+        val tvTabGerenciamento = findViewById<TextView>(R.id.tvTabInscritas)
+        val layoutContentGerenciamento = findViewById<LinearLayout>(R.id.layoutContentInscritas)
+        val layoutContentCriacao = findViewById<LinearLayout>(R.id.layoutContentDisponiveis)
+        val tabGerenciamentoContainer = findViewById<LinearLayout>(R.id.tabInscritasContainer)
+
+        val colorActive = Color.parseColor("#1B5E20")
+        val colorInactive = Color.parseColor("#9FA8DA")
+
+
+
+
+
         tvNomeUsuario?.text = usuario?.nome ?: "Usuário desconhecido"
         tvEmailUsuario?.text = usuario?.email ?: "E-mail não disponível"
 
@@ -37,6 +56,30 @@ class TelaAlunoActivity : AppCompatActivity() {
             val intent = Intent(this, TelaInicialActivity::class.java)
             startActivity(intent)
         }
+
+
+        tabGerenciamentoContainer.setOnClickListener {
+            tvTabGerenciamento.setTextColor(colorActive)
+            indicadorDisponiveis.visibility = View.VISIBLE
+
+            tvDisponiveis.setTextColor(colorInactive)
+            indicadorInscritas.visibility = View.INVISIBLE
+
+            layoutContentGerenciamento.visibility = View.VISIBLE
+            layoutContentCriacao.visibility = View.GONE
+        }
+
+        tabDisponiveisContainer.setOnClickListener {
+            tvTabGerenciamento.setTextColor(colorInactive)
+            indicadorDisponiveis.visibility = View.INVISIBLE
+
+            tvDisponiveis.setTextColor(colorActive)
+            indicadorInscritas.visibility = View.VISIBLE
+
+            layoutContentGerenciamento.visibility = View.GONE
+            layoutContentCriacao.visibility = View.VISIBLE
+        }
+
 
     }
 }

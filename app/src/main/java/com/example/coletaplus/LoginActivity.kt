@@ -7,6 +7,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +36,10 @@ class LoginActivity : AppCompatActivity() {
         val fullText = "Já possui uma conta? Acesse"
         val spannableString = SpannableString(fullText)
         val wordToColor = "Acesse"
+        val btnvoltar = findViewById<ImageButton>(R.id.button_voltar)
+        val btnIrparalogin = findViewById<Button>(R.id.buttonIrParaLogin)
+
+
         val startIndex = fullText.indexOf(wordToColor)
         val endIndex = startIndex + wordToColor.length
         val color = ContextCompat.getColor(this, R.color.verde)
@@ -52,6 +57,20 @@ class LoginActivity : AppCompatActivity() {
 
         botaoLogar.setOnClickListener {
             realizarLogin(campoEmail, campoSenha)
+        }
+
+
+
+        btnIrparalogin.setOnClickListener {
+            val intent = Intent(this, TelaMainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        btnvoltar.setOnClickListener {
+            val intent = Intent(this, TelaMainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

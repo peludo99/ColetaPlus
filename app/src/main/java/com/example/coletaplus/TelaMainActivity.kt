@@ -8,6 +8,7 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -38,6 +39,14 @@ class TelaMainActivity : AppCompatActivity() {
         configurarTextoDoTextView6()
         configurarTextoDoTextView9()
         configurarBotaoRegistrar()
+
+        val textViewLoginLink = findViewById<TextView>(R.id.textView9)
+
+        textViewLoginLink.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 
     private fun validarLoginNoFirebase(email: String, senha: String) {
@@ -97,25 +106,27 @@ class TelaMainActivity : AppCompatActivity() {
     }
 
     private fun configurarTextoDoTextView9() {
+        // Agora o findViewById vai funcionar, pois R.id.textView9 EXISTE em activity_tela_main.xml
         val textViewLoginLink: TextView = findViewById(R.id.textView9)
+
         val texto = "Já possui uma conta? Log in"
         val spannable = SpannableStringBuilder(texto)
         val corVerde: Int = ContextCompat.getColor(this, R.color.verde)
 
         val inicio = texto.indexOf("Log in")
-        val fim = inicio + "Log in".length
 
         if (inicio != -1) {
+            val fim = inicio + "Log in".length
             spannable.setSpan(ForegroundColorSpan(corVerde), inicio, fim, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             spannable.setSpan(StyleSpan(Typeface.BOLD), inicio, fim, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
 
         textViewLoginLink.text = spannable
 
-        textViewLoginLink.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
+
+
     }
+
 
     private fun configurarBotaoRegistrar() {
         val botaoRegistrar: Button = findViewById(R.id.button_registrar)

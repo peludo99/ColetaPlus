@@ -10,20 +10,21 @@
 
 
     <!-- BOTÃO VOLTAR COM ÍCONE -->
+
+
+    <!-- TÍTULO -->
     <ImageButton
         android:id="@+id/button_voltar"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/akar_icons_chevron_left"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Voltar"
-        android:scaleType="centerInside"
         android:padding="8dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/akar_icons_chevron_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <!-- TÍTULO -->
     <TextView
         android:id="@+id/textViewTitleCadastro"
         android:layout_width="wrap_content"

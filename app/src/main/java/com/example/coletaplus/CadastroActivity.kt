@@ -7,6 +7,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,7 @@ class CadastroActivity : AppCompatActivity() {
         }
 
         val divisorTextView = findViewById<Button>(R.id.buttonIrParaLogin)
+        val btnvoltar = findViewById<ImageButton>(R.id.button_voltar)
         val fullText = "Já possui uma conta? Acesse"
         val spannableString = SpannableString(fullText)
         val startIndex = fullText.indexOf("Acesse")
@@ -44,6 +46,9 @@ class CadastroActivity : AppCompatActivity() {
             endIndex,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+
+
+
         divisorTextView.text = spannableString
 
         val campoNome = findViewById<TextInputEditText>(R.id.edit_text_nome)
@@ -138,6 +143,12 @@ class CadastroActivity : AppCompatActivity() {
 
         botaoIrParaLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        btnvoltar.setOnClickListener {
+            val intent = Intent(this, TelaMainActivity::class.java)
             startActivity(intent)
             finish()
         }
