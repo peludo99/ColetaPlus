@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvTituloModal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feedback da Lixeira"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Qual o nível da lixeira?"
+        android:textStyle="bold"/>
+
+    <RadioGroup
+        android:id="@+id/rgNivelLixeira"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/rbCheia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cheia"/>
+        <RadioButton
+            android:id="@+id/rbIntermediaria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Intermediária"/>
+        <RadioButton
+            android:id="@+id/rbVazia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vazia"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição (Opcional)"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/etDescricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ex: A lixeira está danificada"
+        android:inputType="textMultiLine"
+        android:minLines="2"
+        android:gravity="top"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="24dp">
+        <Button
+            android:id="@+id/btnCancelar"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"/>
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Enviar"/>
+    </LinearLayout>
+</LinearLayout>

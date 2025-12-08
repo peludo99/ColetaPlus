@@ -15,17 +15,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ColetaPlus.NoActionBar">
+        <activity
+            android:name=".LojaActivity"
+            android:exported="false" >
 
-        <!-- Entry point do app -->
+
+
+
+
+        </activity>
+
+        <activity
+            android:name=".NotificacaoActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".TelaMainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
 
+        </activity>
         <activity
             android:name=".ConfiActivity"
             android:exported="false" />
@@ -45,10 +58,8 @@
             android:name=".CadastroActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-        <activity
-            android:name=".TelaAlunoActivity" />
-        <activity
-            android:name=".ManutencoesActivity" />
+        <activity android:name=".TelaAlunoActivity" />
+        <activity android:name=".ManutencoesActivity" />
 
         <meta-data
             android:name="org.osmdroid.config"

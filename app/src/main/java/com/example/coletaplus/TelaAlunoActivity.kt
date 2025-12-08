@@ -14,8 +14,6 @@ import com.example.coletaplus.R
 import com.example.coletaplus.databinding.ActivityTelaAlunoBinding
 import com.example.coletaplus.GamificationFragment
 import com.example.coletaplus.HubFragment // Assumindo que este Fragment também está na raiz
-import com.example.coletaplus.NotificationsFragment
-
 
 
 class TelaAlunoActivity : AppCompatActivity() {
@@ -43,6 +41,22 @@ class TelaAlunoActivity : AppCompatActivity() {
 
         val colorActive = Color.parseColor("#1B5E20")
         val colorInactive = Color.parseColor("#9FA8DA")
+
+        val ivSettings = findViewById<ImageView>(R.id.ivSettings)
+
+        ivSettings.setOnClickListener {
+            val intent = Intent(this, LojaActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btnnoti: ImageView = findViewById(R.id.nuser)
+        btnnoti.setOnClickListener {
+            val intent = Intent(this, NotificacaoActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
 
 
 
