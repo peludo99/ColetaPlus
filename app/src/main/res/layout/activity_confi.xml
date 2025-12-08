@@ -243,14 +243,14 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
                     android:layout_toEndOf="@id/icon_tema"
-                    android:text="Tema"
+                    android:text="Notificações"
                     android:textColor="@color/grey"
                     android:textSize="16sp" />
 
                 <!-- 4. O Switch Verde -->
                 <!-- Ele fica alinhado ao final (direita) do contêiner -->
                 <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchTema"
+                    android:id="@+id/notificacaotogle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

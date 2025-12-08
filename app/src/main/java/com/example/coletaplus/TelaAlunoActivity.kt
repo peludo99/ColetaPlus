@@ -62,6 +62,7 @@ class TelaAlunoActivity : AppCompatActivity() {
 
 
 
+
         tvNomeUsuario?.text = usuario?.nome ?: "Usuário desconhecido"
         tvEmailUsuario?.text = usuario?.email ?: "E-mail não disponível"
 

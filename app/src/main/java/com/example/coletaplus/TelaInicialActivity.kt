@@ -58,6 +58,15 @@ class TelaInicialActivity : AppCompatActivity() {
         val btnuser = findViewById<ImageView>(R.id.tuser)
         btnuser.setOnClickListener { irParaTelaDoUsuario() }
 
+
+        val btnconfi: View = findViewById(R.id.configuracoes)
+        btnconfi.setOnClickListener {
+            val intent = Intent(this, ConfiActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
         // O painel não será mais aberto, então este botão não terá efeito visível
         botaoFecharPainel.setOnClickListener {
             painelLixeira.visibility = View.GONE
