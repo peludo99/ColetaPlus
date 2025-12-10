@@ -81,6 +81,13 @@ class HubActivity : AppCompatActivity() {
             abrirRanking("Olhos de águia")
         }
 
+
+        val btnPendencias = findViewById<LinearLayout>(R.id.btnPendencias)
+        btnPendencias.setOnClickListener {
+            val intent = Intent(this, PendenciasActivity::class.java)
+            startActivity(intent)
+        }
+
         val btnmap = findViewById<ImageView>(R.id.muser)
         btnmap.setOnClickListener {
             val intent = Intent(this, TelaInicialActivity::class.java)

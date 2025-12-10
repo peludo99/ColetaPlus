@@ -59,7 +59,7 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity android:name=".TelaAlunoActivity" />
-        <activity android:name=".ManutencoesActivity" />
+        <activity android:name=".PendenciasActivity" />
 
         <meta-data
             android:name="org.osmdroid.config"
