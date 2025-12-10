@@ -180,9 +180,12 @@ class TelaInicialActivity : AppCompatActivity() {
                 descricao = if (descricaoInserida.isNotEmpty()) descricaoInserida else null
             )
 
+            // salva local
             listaDeFeedbacks.add(novoFeedback)
-            Toast.makeText(this, "Feedback enviado com sucesso!", Toast.LENGTH_SHORT).show()
-            println("Feedback para Lixeira ID $idLixeira: $novoFeedback") // Linha para debug
+
+            // salva no Firebase
+            salvarFeedbackNoFirebase(novoFeedback)
+
             dialog.dismiss()
         }
 
@@ -193,6 +196,22 @@ class TelaInicialActivity : AppCompatActivity() {
     }
 
     // --- Suas outras funções permanecem aqui (irParaTelaDoUsuario, onPause, onResume, etc.) ---
+
+    private fun salvarFeedbackNoFirebase(feedback: FeedbackLixeira) {
+        val database = FirebaseDatabase.getInstance()
+        val feedbackRef = database.getReference("lixeiras")
+            .child(feedback.idLixeira)
+            .child("feedbacks")
+            .push() // cria um feedback com ID único
+
+        feedbackRef.setValue(feedback)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Feedback enviado!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Erro ao salvar feedback: ${it.message}", Toast.LENGTH_LONG).show()
+            }
+    }
     private fun irParaTelaDoUsuario() {
         val usuario = RepositorioDados.usuarioLogado
         if (usuario == null) {
