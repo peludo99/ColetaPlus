@@ -1,124 +1,139 @@
-package com.example.coletaplus
+package com.example.coletaplus // Verifique se o nome do seu pacote está correto
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.example.coletaplus.Classes.RepositorioDados
-import com.example.coletaplus.R
-import com.example.coletaplus.databinding.ActivityTelaAlunoBinding
-import com.example.coletaplus.GamificationFragment
-import com.example.coletaplus.HubFragment // Assumindo que este Fragment também está na raiz
-
+import androidx.compose.ui.semantics.text
+import androidx.core.content.ContextCompat
+import com.example.coletaplus.databinding.ActivityTelaAlunoBinding // A importação do seu View Binding
+import com.google.firebase.auth.FirebaseAuth // <-- 1. IMPORTAÇÃO NECESSÁRIA PARA AUTENTICAÇÃO
+import com.google.firebase.auth.FirebaseUser // <-- 2. IMPORTAÇÃO PARA O OBJETO DO USUÁRIO
 
 class TelaAlunoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTelaAlunoBinding
 
+    // --- NOVA VARIÁVEL ---
+    // Variável para acessar a autenticação do Firebase.
+    private lateinit var firebaseAuth: FirebaseAuth
+
+    companion object {
+        const val EXTRA_TITULO = "EXTRA_TITULO_ATIVIDADE"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTelaAlunoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val usuario = RepositorioDados.usuarioLogado
-        val tvNomeUsuario = findViewById<TextView>(R.id.tvUserName)
-        val tvEmailUsuario = findViewById<TextView>(R.id.tvUserEmail)
+        // --- NOVA INICIALIZAÇÃO ---
+        // Inicializa a instância do Firebase Auth.
+        firebaseAuth = FirebaseAuth.getInstance()
 
-        val tabDisponiveisContainer = findViewById<LinearLayout>(R.id.tabDisponiveisContainer)
-        val indicadorDisponiveis = findViewById<View>(R.id.indicatorDisponiveis)
-        val indicadorInscritas = findViewById<View>(R.id.indicatorInscritas)
-        val tvDisponiveis = findViewById<TextView>(R.id.tvTabDisponiveis)
-        val tvTabGerenciamento = findViewById<TextView>(R.id.tvTabInscritas)
-        val layoutContentGerenciamento = findViewById<LinearLayout>(R.id.layoutContentInscritas)
-        val layoutContentCriacao = findViewById<LinearLayout>(R.id.layoutContentDisponiveis)
-        val tabGerenciamentoContainer = findViewById<LinearLayout>(R.id.tabInscritasContainer)
+        // --- NOVAS CHAMADAS DE FUNÇÃO ---
+        loadUserData() // Carrega os dados do usuário na UI.
 
-        val colorActive = Color.parseColor("#1B5E20")
-        val colorInactive = Color.parseColor("#9FA8DA")
+        setupActivityClickListeners()
+        setupTabListeners()
+    }
 
-        val ivSettings = findViewById<ImageView>(R.id.ivSettings)
+    /**
+     * --- FUNÇÃO TOTALMENTE NOVA ---
+     * Verifica o usuário atualmente logado no Firebase e atualiza a UI com seus dados.
+     */
+    private fun loadUserData() {
+        // 1. Pega o usuário que está atualmente logado.
+        val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
 
-        ivSettings.setOnClickListener {
-            val intent = Intent(this, LojaActivity::class.java)
+        if (firebaseUser != null) {
+            // 2. Se existe um usuário logado, extrai suas informações.
+
+            // O nome de exibição pode ser nulo se não foi definido durante o registro.
+            val userName = firebaseUser.displayName
+            val userEmail = firebaseUser.email
+
+            // 3. Atualiza os TextViews com os dados, usando o binding.
+
+            // Verifica se o nome não é nulo ou vazio antes de exibir.
+            if (!userName.isNullOrEmpty()) {
+                binding.tvUserName.text = userName
+            } else {
+                // Caso o nome não esteja disponível, você pode exibir uma parte do email.
+                binding.tvUserName.text = userEmail?.split("@")?.get(0) ?: "Usuário"
+            }
+
+            binding.tvUserEmail.text = userEmail
+
+        } else {
+            // 4. Se NENHUM usuário estiver logado, é uma boa prática
+            //    redirecionar para a tela de login para evitar crashes ou dados vazios.
+            Toast.makeText(this, "Nenhum usuário logado.", Toast.LENGTH_SHORT).show()
+            // Exemplo: startActivity(Intent(this, LoginActivity::class.java))
+            // finish() // Fecha a TelaAlunoActivity para que o usuário não possa voltar para ela sem logar.
+        }
+    }
+
+    /**
+     * Centraliza a configuração dos listeners de clique para as atividades.
+     */
+    private fun setupActivityClickListeners() {
+        // (Esta função permanece exatamente como estava)
+        setupClickListener(binding.itemSemanaDoPlastico, binding.tvSemanaDoPlastico)
+        setupClickListener(binding.itemLeitor, binding.tvLeitor)
+        setupClickListener(binding.itemOlhosDeAguia, binding.tvOlhosDeAguia)
+    }
+
+    /**
+     * Função auxiliar que define a ação de clique para um item de atividade.
+     */
+    private fun setupClickListener(itemClicavel: View, textViewFonte: TextView) {
+        // (Esta função permanece exatamente como estava)
+        itemClicavel.setOnClickListener {
+            val titulo = textViewFonte.text.toString()
+            val intent = Intent(this, GamificationRankingActivity::class.java)
+            intent.putExtra(EXTRA_TITULO, titulo)
             startActivity(intent)
         }
+    }
 
-        val btnnoti: ImageView = findViewById(R.id.nuser)
-        btnnoti.setOnClickListener {
-            val intent = Intent(this, NotificacaoActivity::class.java)
-            startActivity(intent)
-            finish()
+    /**
+     * Configura os listeners de clique para as abas.
+     */
+    private fun setupTabListeners() {
+        // (Esta função permanece exatamente como estava)
+        binding.tabInscritasContainer.setOnClickListener {
+            selectTab(isIncritasSelected = true)
         }
-
-
-
-
-
-
-
-
-        tvNomeUsuario?.text = usuario?.nome ?: "Usuário desconhecido"
-        tvEmailUsuario?.text = usuario?.email ?: "E-mail não disponível"
-
-        val btnmap = findViewById<ImageView>(R.id.muser)
-        btnmap.setOnClickListener {
-            val intent = Intent(this, TelaInicialActivity::class.java)
-            startActivity(intent)
+        binding.tabDisponiveisContainer.setOnClickListener {
+            selectTab(isIncritasSelected = false)
         }
+    }
 
+    /**
+     * Atualiza a aparência das abas e a visibilidade do conteúdo.
+     */
+    private fun selectTab(isIncritasSelected: Boolean) {
+        // (Esta função permanece exatamente como estava)
+        val activeColor = ContextCompat.getColor(this, R.color.green_card_dark)
+        val inactiveColor = ContextCompat.getColor(this, R.color.grey)
 
-        tabGerenciamentoContainer.setOnClickListener {
-            tvTabGerenciamento.setTextColor(colorActive)
-            indicadorDisponiveis.visibility = View.VISIBLE
-
-            tvDisponiveis.setTextColor(colorInactive)
-            indicadorInscritas.visibility = View.INVISIBLE
-
-            layoutContentGerenciamento.visibility = View.VISIBLE
-            layoutContentCriacao.visibility = View.GONE
+        if (isIncritasSelected) {
+            binding.tvTabInscritas.setTextColor(activeColor)
+            binding.indicatorInscritas.visibility = View.VISIBLE
+            binding.layoutContentInscritas.visibility = View.VISIBLE
+            binding.tvTabDisponiveis.setTextColor(inactiveColor)
+            binding.indicatorDisponiveis.visibility = View.INVISIBLE
+            binding.layoutContentDisponiveis.visibility = View.INVISIBLE
+        } else {
+            binding.tvTabInscritas.setTextColor(inactiveColor)
+            binding.indicatorInscritas.visibility = View.INVISIBLE
+            binding.layoutContentInscritas.visibility = View.INVISIBLE
+            binding.tvTabDisponiveis.setTextColor(activeColor)
+            binding.indicatorDisponiveis.visibility = View.VISIBLE
+            binding.layoutContentDisponiveis.visibility = View.VISIBLE
         }
-
-        tabDisponiveisContainer.setOnClickListener {
-            tvTabGerenciamento.setTextColor(colorInactive)
-            indicadorDisponiveis.visibility = View.INVISIBLE
-
-            tvDisponiveis.setTextColor(colorActive)
-            indicadorInscritas.visibility = View.VISIBLE
-
-            layoutContentGerenciamento.visibility = View.GONE
-            layoutContentCriacao.visibility = View.VISIBLE
-        }
-
-
     }
 }
-        // codigo comentado pois não esta rodando ( nada foi alterado apenas comentei) -cauan abraão
-
-        /*    // Garante que o HubFragment seja o primeiro a ser carregado se não for o padrão
-           if (savedInstanceState == null) {
-               loadFragment(HubFragment())
-           }
-
-          binding.bottomNavigation.setOnItemSelectedListener { item ->
-               when (item.itemId) {
-                   R.id.nav_hub -> loadFragment(HubFragment())           // ID do menu
-                   R.id.nav_gamification -> loadFragment(GamificationFragment()) // ID do menu
-                   R.id.nav_notifications -> loadFragment(NotificationsFragment()) // ID do menu
-                   else -> return@setOnItemSelectedListener false
-               }
-               true
-           }
-       }
-
-       // Função utilitária para trocar o Fragment
-       private fun loadFragment(fragment: Fragment) {
-           supportFragmentManager.beginTransaction()
-               .replace(R.id.fragment_container, fragment)
-               .commit()
-       } */

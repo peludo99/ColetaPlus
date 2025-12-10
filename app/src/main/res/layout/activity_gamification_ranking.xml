@@ -226,13 +226,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/green_card_dark"
-        android:paddingHorizontal="24dp"
         android:clipToPadding="false"
+        android:paddingHorizontal="24dp"
         android:paddingBottom="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/bottomNavBar"
         app:layout_constraintTop_toBottomOf="@id/llRankingHeader"
+        app:layout_constraintVertical_bias="0.0"
         tools:itemCount="6"
+        tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/item_ranking_row" />
 
     <LinearLayout

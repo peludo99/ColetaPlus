@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".HubActivity"> <!-- Substitua pelo nome da sua Activity -->
 
     <!-- TÍTULO -->
     <TextView
@@ -119,10 +120,10 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:progress="150"
+                android:layout_marginTop="8dp"
                 android:max="5000"
-                android:progressDrawable="@drawable/lv_bar"
-                android:layout_marginTop="8dp" />
+                android:progress="150"
+                android:progressDrawable="@drawable/lv_bar" />
         </LinearLayout>
 
         <!-- LINHA DOS OUTROS DOIS CARDS -->
@@ -136,8 +137,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="6dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_card_dark_green"
                 android:orientation="vertical"
                 android:padding="12dp">
@@ -176,8 +177,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="6dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_card_dark_green"
                 android:orientation="vertical"
                 android:padding="12dp">
@@ -312,12 +313,18 @@
             android:orientation="horizontal"
             android:paddingHorizontal="16dp">
 
+            <!-- Item 1: Semana do plástico -->
             <LinearLayout
+                android:id="@+id/itemSemanaDoPlastico"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
 
                 <ImageView
                     android:layout_width="80dp"
@@ -325,6 +332,7 @@
                     android:src="@drawable/ic_insignia1" />
 
                 <TextView
+                    android:id="@+id/tvSemanaDoPlastico"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -333,12 +341,18 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
+            <!-- Item 2: Leitor -->
             <LinearLayout
+                android:id="@+id/itemLeitor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
 
                 <ImageView
                     android:layout_width="80dp"
@@ -346,6 +360,7 @@
                     android:src="@drawable/ic_insignia2" />
 
                 <TextView
+                    android:id="@+id/tvLeitor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -354,12 +369,18 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
+            <!-- Item 3: Olhos de águia -->
             <LinearLayout
+                android:id="@+id/itemOlhosDeAguia"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
 
                 <ImageView
                     android:layout_width="80dp"
@@ -367,6 +388,7 @@
                     android:src="@drawable/ic_insignia3" />
 
                 <TextView
+                    android:id="@+id/tvOlhosDeAguia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

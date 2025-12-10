@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.15"
-        android:text="4"
+        android:text="1"
         android:textSize="16sp"
         android:textColor="@color/black_text"
         android:textStyle="bold" />
@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.55"
-        android:text="Juliene"
+        android:text="Nome de Usuario"
         android:textSize="16sp"
         android:textColor="@color/black_text" />
 

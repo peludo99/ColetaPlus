@@ -1,35 +1,39 @@
-package com.example.coletaplus
+package com.example.coletaplus.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coletaplus.Classes.Usuario
+import com.example.coletaplus.R
 
-// Nota: Agora usa com.example.coletaplus.RankingItem
-class RankingAdapter(private val rankingList: List<RankingItem>) :
-    RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
+class RankingAdapter(
+    private val listaDeUsuarios: List<Usuario>,
+    private val rankingOffset: Int
+) : RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
 
-    class RankingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        // IDs assumidos do seu item_ranking.xml
-        val textPosition: TextView = view.findViewById(R.id.text_position)
-        val textName: TextView = view.findViewById(R.id.text_name)
-        val textScore: TextView = view.findViewById(R.id.text_score)
+    class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvPosicao: TextView = itemView.findViewById(R.id.tvRank)
+        val tvNomeUsuario: TextView = itemView.findViewById(R.id.tvName)
+        val tvPontos: TextView = itemView.findViewById(R.id.tvPoints)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_ranking, parent, false)
+            .inflate(R.layout.item_ranking_row, parent, false)
         return RankingViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
-        val currentItem = rankingList[position]
-
-        holder.textPosition.text = currentItem.position.toString()
-        holder.textName.text = currentItem.name
-        holder.textScore.text = currentItem.score.toString()
+        val usuario = listaDeUsuarios[position]
+        val posicaoReal = position + rankingOffset
+        holder.tvPosicao.text = "$posicaoReal"
+        holder.tvNomeUsuario.text = usuario.nome
+        holder.tvPontos.text = usuario.pontos.toString()
     }
 
-    override fun getItemCount() = rankingList.size
+    override fun getItemCount(): Int {
+        return listaDeUsuarios.size
+    }
 }
