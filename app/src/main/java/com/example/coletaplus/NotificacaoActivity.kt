@@ -16,6 +16,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import com.google.firebase.database.FirebaseDatabase
+import java.time.Instant
+import java.time.ZoneId
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 class NotificacaoActivity : AppCompatActivity() {
@@ -41,10 +45,7 @@ class NotificacaoActivity : AppCompatActivity() {
         configurarBotaoVoltar()
 
         // Busca e exibe as notificações
-        val listaDeNotificacoes = obterNotificacoesFalsas()
-        for (notificacao in listaDeNotificacoes) {
-            adicionarViewDeNotificacao(notificacao)
-        }
+        carregarNotificacoesDoFirebase()
     }
 
     private fun configurarBotaoVoltar() {
@@ -83,15 +84,40 @@ class NotificacaoActivity : AppCompatActivity() {
     }
 
     // Função para gerar dados de exemplo
-    private fun obterNotificacoesFalsas(): List<Notificacao> {
-        val agora = LocalDateTime.now()
-        return listOf(
-            Notificacao("Dica da Semana", "Você sabia que garrafas PET podem ser transformadas em tecido? Este processo não só economiza recursos, como também reduz o desperdício em aterros sanitários. Continue reciclando para apoiar essa causa!", agora.minusMinutes(5)),
-            Notificacao("Lembrete de Coleta", "Não se esqueça, sua coleta de plásticos está agendada para amanhã às 10h. Por favor, deixe os materiais em um local visível e de fácil acesso para nossos coletores. Agradecemos sua colaboração!", agora.minusHours(2)),
-            Notificacao("Nova Conquista", "Parabéns! Você alcançou o nível 'Iniciante' por sua primeira coleta. Continue participando para desbloquear novas recompensas e subir no ranking de sustentabilidade.", agora.minusDays(1)),
-            Notificacao("Bem-vindo!", "Seu registro em nossa plataforma foi concluído com sucesso. Explore o aplicativo para encontrar pontos de coleta, agendar retiradas e acompanhar seu impacto ambiental. Estamos felizes em tê-lo conosco!", agora.minusWeeks(1))
-        )
+    private fun carregarNotificacoesDoFirebase() {
+        val dbRef = FirebaseDatabase.getInstance().getReference("notificacoes")
+
+        dbRef.get().addOnSuccessListener { snapshot ->
+            if (!snapshot.exists()) return@addOnSuccessListener
+
+            val listaNotificacoes = mutableListOf<Notificacao>()
+
+            for (notifSnap in snapshot.children) {
+                val titulo = notifSnap.child("titulo").getValue(String::class.java) ?: continue
+                val mensagem = notifSnap.child("mensagem").getValue(String::class.java) ?: continue
+                val timestamp = notifSnap.child("dataHora").getValue(Long::class.java) ?: continue
+
+                // Converter millis → LocalDateTime
+                val dataHora = Instant.ofEpochMilli(timestamp)
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDateTime()
+
+                listaNotificacoes.add(Notificacao(titulo, mensagem, dataHora))
+            }
+
+            // Ordenar notificações da mais recente para a mais antiga
+            listaNotificacoes.sortByDescending { it.dataHora }
+
+            // Adicionar na tela
+            for (notificacao in listaNotificacoes) {
+                adicionarViewDeNotificacao(notificacao)
+            }
+
+        }.addOnFailureListener {
+            println("ERRO AO CARREGAR NOTIFICAÇÕES: ${it.message}")
+        }
     }
+
 }
 
 // A data class para estruturar os dados de uma notificação
